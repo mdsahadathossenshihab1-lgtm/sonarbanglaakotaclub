@@ -1,5 +1,5 @@
 // আপনার গুগল অ্যাপস স্ক্রিপ্ট থেকে পাওয়া Web App URL-টি এখানে বসাবেন
-const scriptURL = 'https://script.google.com/macros/s/AKfycbyKq6TvTb-U1WNZfvr0wYxZIuRs_l2JUivtj1gJfLcaO8KYZ7PgqCfXs1NpC6dpQSa9-g/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzs6n8rf0acEYWxIMGoHByRbmbdkGbcPzm7n8aqljr3oeJ1uYPfq7Ald1JOxoeCXXJu_A/exec';
 
 const form = document.getElementById('advancedRegistrationForm');
 const submitBtn = document.getElementById('submitBtn');

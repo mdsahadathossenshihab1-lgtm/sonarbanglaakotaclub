@@ -10,6 +10,17 @@
         body { font-family: 'Hind Siliguri', sans-serif; }
         .modal { transition: opacity 0.25s ease; }
         body.modal-active { overflow-x: hidden; overflow-y: visible !important; }
+
+        /* প্রিন্ট করার সময় ছবি ও ডাটা টেবিল ১০০% স্পষ্ট রাখার জন্য বিশেষ প্রিন্ট মিডিয়া সিএসএস */
+        @media print {
+            body * { visibility: hidden; } /* পেজের অন্য সব কিছু হাইড */
+            #modal, #modal *, #modalBody, #modalBody * { visibility: visible; } /* শুধু পপ-আপ ফর্ম দৃশ্যমান */
+            #modal { position: absolute; left: 0; top: 0; width: 100%; height: auto; }
+            .modal-overlay, button, nav, input, .no-print { display: none !important; } /* বাটন, নেভিগেশন ও এডিট একশন হাইড */
+            img { display: block !important; max-width: 140px !important; height: auto !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; border-radius: 8px !important; }
+            input, textarea { border: none !important; outline: none !important; background: transparent !important; padding: 0 !important; font-weight: bold !important; color: #1e293b !important; pointer-events: none !important; }
+            label { color: #475569 !important; font-weight: 600 !important; }
+        }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen">
@@ -17,7 +28,10 @@
     <nav class="bg-red-600 text-white shadow-lg p-4 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <h1 class="text-xl font-bold">সোনার বাংলা একতা ক্লাব - অ্যাডমিন প্যানেল</h1>
-            <button onclick="location.reload()" class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg text-sm transition">রিফ্রেশ ডাটা</button>
+            <div class="flex gap-3">
+                <a href="login.html" class="bg-white text-red-600 hover:bg-red-50 px-4 py-2 rounded-lg text-sm font-bold transition">ইউজার লগইন প্যানেল</a>
+                <button onclick="location.reload()" class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg text-sm transition">রিফ্রেশ ডাটা</button>
+            </div>
         </div>
     </nav>
 
@@ -27,11 +41,11 @@
                 <h2 class="text-2xl font-bold text-slate-800">নিবন্ধিত সদস্য তালিকা</h2>
                 <p class="text-slate-500">মোট সদস্য সংখ্যা: <span id="memberCount" class="font-bold text-red-600">০</span> জন</p>
             </div>
-            <input type="text" id="searchInput" onkeyup="searchMembers()" placeholder="নাম বা মোবাইল দিয়ে খুঁজুন..." class="px-4 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-red-500 w-full sm:w-64 shadow-sm">
+            <input type="text" id="searchInput" onkeyup="searchMembers()" placeholder="নাম বা মোবাইল দিয়ে খুঁজুন..." class="px-4 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-red-500 w-full sm:w-64 shadow-sm">
         </div>
 
         <div id="memberGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            <p id="loadingText" class="col-span-full text-center py-20 text-slate-400 text-lg animate-pulse">ডাটা লোড হচ্ছে, দয়া করে অপেক্ষা করুন...</p>
+            <p id="loadingText" class="col-span-full text-center py-20 text-slate-400 text-lg animate-pulse">ডাটা লোড হচ্ছে, দয়া করে অপেক্ষা করুন...</p>
         </div>
     </main>
 
@@ -41,23 +55,26 @@
         <div class="modal-container bg-white w-11/12 md:max-w-3xl mx-auto rounded-2xl shadow-2xl z-50 overflow-y-auto max-h-[90vh]">
             <div class="p-6">
                 <div class="flex justify-between items-center pb-4 border-b">
-                    <p class="text-2xl font-bold text-red-600">আবেদনকারীর সম্পূর্ণ বিবরণী</p>
-                    <button onclick="toggleModal()" class="text-slate-400 hover:text-slate-600 text-3xl font-semibold">&times;</button>
+                    <p class="text-xl font-bold text-red-600">আবেদনকারীর সম্পূর্ণ তথ্য মডিফাই ও এডিট ফরম</p>
+                    <button type="button" onclick="toggleModal()" class="text-slate-400 hover:text-slate-600 text-3xl font-semibold">&times;</button>
                 </div>
                 
-                <div id="modalBody" class="py-6">
-                    </div>
+                <form id="adminUpdateForm">
+                    <div id="modalBody" class="py-6">
+                        </div>
 
-                <div class="flex justify-end pt-4 border-t gap-3">
-                    <button onclick="window.print()" class="px-5 py-2 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition">প্রিন্ট করুন</button>
-                    <button onclick="toggleModal()" class="px-5 py-2 bg-slate-800 text-white rounded-xl font-bold hover:bg-slate-700 transition">বন্ধ করুন</button>
-                </div>
+                    <div class="flex justify-end pt-4 border-t gap-3">
+                        <button type="submit" id="updateBtn" class="px-5 py-2 bg-green-600 text-white rounded-xl font-bold hover:bg-green-700 transition no-print">তথ্য আপডেট করুন</button>
+                        <button type="button" onclick="window.print()" class="px-5 py-2 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition">প্রিন্ট করুন</button>
+                        <button type="button" onclick="toggleModal()" class="px-5 py-2 bg-slate-800 text-white rounded-xl font-bold hover:bg-slate-700 transition no-print">বন্ধ করুন</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyKq6TvTb-U1WNZfvr0wYxZIuRs_l2JUivtj1gJfLcaO8KYZ7PgqCfXs1NpC6dpQSa9-g/exec'; // আপনার Web App URL এখানে দিন
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzs6n8rf0acEYWxIMGoHByRbmbdkGbcPzm7n8aqljr3oeJ1uYPfq7Ald1JOxoeCXXJu_A/exec'; 
         let allMembers = [];
 
         async function fetchMembers() {
@@ -67,7 +84,7 @@
                 renderMembers(allMembers);
             } catch (error) {
                 console.error('Error:', error);
-                document.getElementById('loadingText').innerText = "ডাটা লোড করতে সমস্যা হয়েছে বা কোনো মেম্বার ডাটা নেই।";
+                document.getElementById('loadingText').innerText = "ডাটা লোড করতে সমস্যা হয়েছে বা কোনো মেম্বার ডাটা নেই।";
             }
         }
 
@@ -78,73 +95,182 @@
             count.innerText = data.length;
 
             if(data.length === 0) {
-                grid.innerHTML = '<p class="col-span-full text-center py-10 text-slate-400">কোনো সদস্য পাওয়া যায়নি।</p>';
+                grid.innerHTML = '<p class="col-span-full text-center py-10 text-slate-400">কোনো সদস্য পাওয়া যায়নি।</p>';
                 return;
             }
 
             data.forEach(user => {
                 grid.innerHTML += `
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
                         <div class="flex items-center space-x-4">
-                            <img src="${user.photo}" class="w-20 h-20 rounded-full object-cover border-2 border-red-100 p-1 bg-slate-50" onerror="this.src='https://via.placeholder.com/150'">
+                            <img src="${user.photo}" class="w-16 h-16 rounded-full object-cover border border-slate-200 shadow-sm" onerror="this.src='https://via.placeholder.com/150'">
                             <div>
-                                <h3 class="font-bold text-slate-800 text-lg">${user.nameBn}</h3>
-                                <p class="text-red-600 font-bold text-sm">গ্রুপ: ${user.blood}</p>
-                                <p class="text-slate-500 text-xs">${user.phone}</p>
+                                <h3 class="font-bold text-slate-800 text-base line-clamp-1">${user.nameBn}</h3>
+                                <p class="text-red-600 font-bold text-xs">গ্রুপ: ${user.blood}</p>
+                                <p class="text-slate-500 text-[11px] font-mono">${user.phone}</p>
                             </div>
                         </div>
-                        <button onclick="viewDetails('${user.phone}')" class="w-full mt-5 bg-slate-50 text-slate-700 font-bold py-2 rounded-xl border border-slate-200 hover:bg-red-600 hover:text-white hover:border-red-600 transition-colors">View Full Details</button>
+                        <div class="grid grid-cols-2 gap-2 mt-4">
+                            <button onclick="editDetails('${user.phone}')" class="bg-blue-50 text-blue-600 text-xs font-bold py-2 rounded-xl border border-blue-100 hover:bg-blue-600 hover:text-white transition">View & Edit</button>
+                            <button onclick="deleteMember('${user.phone}', '${user.nameBn}')" class="bg-red-50 text-red-600 text-xs font-bold py-2 rounded-xl border border-red-100 hover:bg-red-600 hover:text-white transition">Delete</button>
+                        </div>
                     </div>
                 `;
             });
         }
 
-        function viewDetails(phone) {
+        function editDetails(phone) {
             const user = allMembers.find(u => u.phone.toString().trim() === phone.toString().trim());
             if(!user) return;
 
             const modalBody = document.getElementById('modalBody');
             modalBody.innerHTML = `
                 <div class="flex flex-col items-center mb-6 border-b pb-4">
-                    <img src="${user.photo}" class="w-32 h-32 rounded-xl object-cover shadow-md border-4 border-slate-100 mb-3" onerror="this.src='https://via.placeholder.com/150'">
-                    <h3 class="text-2xl font-bold text-slate-800">${user.nameBn} (${user.nameEn})</h3>
-                    <p class="text-slate-500 font-mono text-sm">ID: MBR-ID-${user.phone.slice(-4)}</p>
+                    <img src="${user.photo}" class="w-32 h-32 rounded-xl object-cover shadow-md border-4 border-slate-100 mb-2" onerror="this.src='https://via.placeholder.com/150'">
+                    <h3 class="text-xl font-bold text-slate-800 print:mt-1">${user.nameBn} (${user.nameEn})</h3>
+                    <p class="text-slate-500 font-mono text-xs">ID: MBR-ID-${user.phone.slice(-4)}</p>
                 </div>
                 
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-slate-100 text-slate-700 text-sm">
-                                <th class="p-3 border font-bold">বিষয়</th>
-                                <th class="p-3 border font-bold">বিবরণ</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-sm text-slate-600">
-                            <tr><td class="p-3 border font-semibold bg-slate-50/50">পিতার নাম</td><td class="p-3 border">${user.fatherName}</td></tr>
-                            <tr><td class="p-3 border font-semibold bg-slate-50/50">মাতার নাম</td><td class="p-3 border">${user.motherName}</td></tr>
-                            <tr><td class="p-3 border font-semibold bg-slate-50/50">জন্ম তারিখ</td><td class="p-3 border">${user.dob}</td></tr>
-                            <tr><td class="p-3 border font-semibold bg-slate-50/50">রক্তের গ্রুপ</td><td class="p-3 border text-red-600 font-bold">${user.blood}</td></tr>
-                            <tr><td class="p-3 border font-semibold bg-slate-50/50">ধর্ম / জাতীয়তা</td><td class="p-3 border">${user.religion} / ${user.nationality}</td></tr>
-                            <tr><td class="p-3 border font-semibold bg-slate-50/50">উচ্চতা</td><td class="p-3 border">${user.height}</td></tr>
-                            <tr><td class="p-3 border font-semibold bg-slate-50/50">NID / জন্ম নিবন্ধন নম্বর</td><td class="p-3 border font-mono">${user.docIdNumber}</td></tr>
-                            <tr><td class="p-3 border font-semibold bg-slate-50/50">সদস্য ফোন নম্বর</td><td class="p-3 border">${user.phone}</td></tr>
-                            <tr><td class="p-3 border font-semibold bg-slate-50/50">জরুরী যোগাযোগ নম্বর</td><td class="p-3 border">${user.contactPhone}</td></tr>
-                            <tr><td class="p-3 border font-semibold bg-slate-50/50">বর্তমান ঠিকানা</td><td class="p-3 border">${user.presentAddress}</td></tr>
-                            <tr><td class="p-3 border font-semibold bg-slate-50/50">স্থায়ী ঠিকানা</td><td class="p-3 border">${user.permanentAddress}</td></tr>
-                            <tr><td class="p-3 border font-semibold bg-slate-50/50">শর্তাবলী সম্মতি</td><td class="p-3 border">শর্ত ১: <span class="font-bold">${user.rule1}</span> | শর্ত ২: <span class="font-bold">${user.rule2}</span></td></tr>
-                            <tr><td class="p-3 border font-semibold bg-slate-50/50">ডিজিটাল স্বাক্ষর</td><td class="p-3 border class="font-semibold text-slate-800">${user.signatureName}</td></tr>
-                            <tr><td class="p-3 border font-semibold bg-slate-50/50">যোগদানের তারিখ</td><td class="p-3 border">${user.joiningDate}</td></tr>
-                            <tr>
-                                <td class="p-3 border font-semibold bg-slate-50/50">সংলগ্ন ডকুমেন্ট (NID)</td>
-                                <td class="p-3 border">
-                                    <a href="${user.docLink}" target="_blank" class="text-blue-600 hover:underline inline-flex items-center">NID/সনদ ফাইল দেখুন ↗</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <input type="hidden" name="action" value="update">
+                <input type="hidden" name="memberPhone" value="${user.phone}">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">নাম (বাংলায়)</label>
+                        <input type="text" name="nameBn" value="${user.nameBn}" class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">নাম (ইংরেজিতে)</label>
+                        <input type="text" name="nameEn" value="${user.nameEn}" class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">পিতার নাম</label>
+                        <input type="text" name="fatherName" value="${user.fatherName}" class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">মাতার নাম</label>
+                        <input type="text" name="motherName" value="${user.motherName}" class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">জন্ম তারিখ</label>
+                        <input type="text" name="dob" value="${user.dob}" class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">রক্তের গ্রুপ</label>
+                        <input type="text" name="bloodGroup" value="${user.blood}" class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">ধর্ম</label>
+                        <input type="text" name="religion" value="${user.religion}" class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">জাতীয়তা</label>
+                        <input type="text" name="nationality" value="${user.nationality}" class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">উচ্চতা</label>
+                        <input type="text" name="height" value="${user.height}" class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">NID / জন্ম নিবন্ধন নম্বর</label>
+                        <input type="text" name="docIdNumber" value="${user.docIdNumber}" class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">জরুরী যোগাযোগ নম্বর</label>
+                        <input type="text" name="contactPhone" value="${user.contactPhone}" class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">লগইন পাসওয়ার্ড (V কলাম)</label>
+                        <input type="text" name="password" value="${user.password || ''}" class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500 bg-yellow-50/50">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">সদস্য ফোন নম্বর (নন-এডিটেবল)</label>
+                        <input type="text" readonly value="${user.phone}" class="w-full p-2.5 border rounded-lg bg-slate-100 cursor-not-allowed text-gray-500">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">যোগদানের তারিখ</label>
+                        <input type="text" readonly value="${user.joiningDate}" class="w-full p-2.5 border rounded-lg bg-slate-100 cursor-not-allowed text-gray-500">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block font-bold text-gray-700 mb-1">বর্তমান ঠিকানা</label>
+                        <textarea name="presentAddress" rows="1" class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500 resize-none">${user.presentAddress}</textarea>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block font-bold text-gray-700 mb-1">স্থায়ী ঠিকানা</label>
+                        <textarea name="permanentAddress" rows="1" class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500 resize-none">${user.permanentAddress}</textarea>
+                    </div>
+                    <div class="md:col-span-2 p-3 bg-slate-50 rounded-lg">
+                        <p class="font-bold mb-1">ঘোষণা সম্মতি কোড:</p>
+                        <p class="text-slate-600">শর্ত ১: <span class="font-bold">${user.rule1}</span> | শর্ত ২: <span class="font-bold">${user.rule2}</span> | ডিজিটাল স্বাক্ষর: <span class="font-bold">${user.signatureName}</span></p>
+                    </div>
+                    <div class="md:col-span-2 p-2.5 bg-slate-100 rounded-lg flex justify-between items-center no-print">
+                        <span class="font-bold">সংযুক্ত মূল ডকুমেন্ট:</span>
+                        <a href="${user.docLink}" target="_blank" class="text-blue-600 hover:underline font-bold">NID/সনদ ফাইল দেখুন ↗</a>
+                    </div>
                 </div>
             `;
             toggleModal();
+        }
+
+        // এডিট ফরম সাবমিট করার জাভাস্ক্রিপ্ট লজিক
+        document.getElementById('adminUpdateForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('updateBtn');
+            btn.disabled = true;
+            btn.innerText = "আপডেট হচ্ছে...";
+
+            const formData = new FormData(e.target);
+            const payload = new URLSearchParams(formData);
+
+            try {
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: payload.toString()
+                });
+                const result = await response.text();
+                if (result === "Updated") {
+                    alert("🎉 সদস্যের তথ্য সফলভাবে গুগল শিটে লাইভ আপডেট করা হয়েছে!");
+                    toggleModal();
+                    fetchMembers(); // ড্যাশবোর্ড ডাটা রিলোড
+                } else {
+                    alert("❌ আপডেট ব্যর্থ হয়েছে।");
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert("কারিগরি ত্রুটি বা নেটওয়ার্ক সমস্যা হয়েছে!");
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "তথ্য আপডেট করুন";
+            }
+        });
+
+        // মেম্বার চিরতরে ডিলিট করার জাভাস্ক্রিপ্ট লজিক
+        async function deleteMember(phone, name) {
+            if (confirm(`আপনি কি নিশ্চিত যে আপনি "${name}"-এর সমস্ত ডাটা গুগল শিট থেকে চিরতরে ডিলিট করতে চান?`)) {
+                try {
+                    const payload = new URLSearchParams();
+                    payload.append("action", "delete");
+                    payload.append("memberPhone", phone);
+
+                    const response = await fetch(scriptURL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: payload.toString()
+                    });
+
+                    const result = await response.text();
+                    if (result === "Deleted") {
+                        alert("✓ সদস্যের ডাটা সফলভাবে গুগল শিট থেকে মুছে ফেলা হয়েছে!");
+                        fetchMembers();
+                    } else {
+                        alert("❌ ডাটা ডিলিট করা যায়নি।");
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert("কারিগরি ত্রুটি হয়েছে!");
+                }
+            }
         }
 
         function toggleModal() {
