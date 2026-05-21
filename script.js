@@ -1,5 +1,5 @@
-// আপনার গুগল অ্যাপস স্ক্রিপ্ট থেকে পাওয়া Web App URL-টি এখানে বসাবেন
-const scriptURL = 'https://script.google.com/macros/s/AKfycbyiPjmLGfEnIN-iGTgbMPLgK3U2c4Ws6DsMbTFxmXHS4jveJlJAYqg6eZ-qNlUM6sKO-A/exec';
+// আপনার গুগল অ্যাপস স্ক্রিপ্ট থেকে পাওয়া Web App URL-টি এখানে বসাবেন
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzO4KYYGquq9HkDRc9ro006RdowrJ5irNg5zePilck_ZGmp6-Jjq2BNjDIph8W-U7Wl5w/exec';
 
 const form = document.getElementById('advancedRegistrationForm');
 const submitBtn = document.getElementById('submitBtn');
@@ -20,17 +20,18 @@ form.addEventListener('submit', async (e) => {
     
     // বাটন লক ও প্রসেসিং টেক্সট দেখানো
     submitBtn.disabled = true;
-    submitBtn.innerText = "ফাইল ও আবেদন প্রসেস হচ্ছে, দয়া করে অপেক্ষা করুন...";
+    submitBtn.innerText = "ফাইল ও আবেদন প্রসেস হচ্ছে, দয়া করে অপেক্ষা করুন...";
     submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
 
     try {
+        // ফর্মের সব ইনপুট (nameBn, memberPhone, password, action ইত্যাদি) একসাথে রিড করা
         const formData = new FormData(form);
 
         // ছবি এবং ডকুমেন্ট ফাইল ইনপুট থেকে রিড করা
         const photoFile = document.getElementById('photoFileInput').files[0];
         const docFile = document.getElementById('docFileInput').files[0];
 
-        // ফাইল দুটিকে Base64-এ কনভার্ট করে ফর্মে যুক্ত করা
+        // ফাইল দুটিকে Base64-একনভার্ট করে ফর্মে যুক্ত করা
         if (photoFile) {
             const photoBase64 = await getBase64(photoFile);
             formData.append('photoData', photoBase64); 
@@ -40,29 +41,39 @@ form.addEventListener('submit', async (e) => {
             formData.append('docData', docBase64);
         }
 
-        // no-cors মোড ব্যবহার করে গুগল স্ক্রিপ্টে ডেটা পাঠানো (CORS সমস্যা দূর করার জন্য)
-        await fetch(scriptURL, { 
+        // রুলস বা চেকবক্সের ভ্যালুগুলো অন/অফ নিশ্চিত করা
+        formData.set('rule1', form.rule1.checked ? 'true' : 'false');
+        formData.set('rule2', form.rule2.checked ? 'true' : 'false');
+
+        // স্ট্যান্ডার্ড fetch মেথড (যাতে রেসপন্স চেক করা যায় এবং সফল সাবমিশন ট্র্যাক করা যায়)
+        const response = await fetch(scriptURL, { 
             method: 'POST', 
-            mode: 'no-cors', 
             body: formData 
         });
         
-        // no-cors মোডে রেসপন্স রিড করা যায় না, কিন্তু ডেটা সফলভাবে চলে যায়
-        msg.classList.remove('hidden');
-        form.reset();
+        const resultText = await response.text();
         
-        // ফাইল ইনপুটগুলো ম্যানুয়ালি ক্লিয়ার করা
-        document.getElementById('photoFileInput').value = '';
-        document.getElementById('docFileInput').value = '';
-        
-        // ৬ সেকেন্ড পর সফলতার মেসেজটি হাইড করা
-        setTimeout(() => { msg.classList.add('hidden'); }, 6000);
+        if (resultText === "Success") {
+            // সফলতার মেসেজ দেখানো
+            msg.innerText = "🎉 আপনার আবেদনটি সফলভাবে সম্পন্ন হয়েছে এবং সব ডেটা ও ফাইল গুগল ড্রাইভে আপলোড হয়েছে!";
+            msg.classList.remove('hidden');
+            
+            // ফর্ম এবং ফাইল ইনপুটগুলো রিসেট করা
+            form.reset();
+            document.getElementById('photoFileInput').value = '';
+            document.getElementById('docFileInput').value = '';
+            
+            // ৬ সেকেন্ড পর সফলতার মেসেজটি হাইড করা
+            setTimeout(() => { msg.classList.add('hidden'); }, 6000);
+        } else {
+            alert('গুগল শিটে ডেটা সেভ হতে সমস্যা হয়েছে। আবার চেষ্টা করুন।');
+        }
 
     } catch (error) {
         console.error('Network Error!', error.message);
-        alert('দুঃখিত! কোনো কারিগরি ত্রুটি হয়েছে। আবার চেষ্টা করুন।');
+        alert('দুঃখিত! কোনো কারিগরি ত্রুটি হয়েছে। আবার চেষ্টা করুন।');
     } finally {
-        // বাটন আগের অবস্থায় ফিরিয়ে আনা
+        // বাটন আগের অবস্থায় ফিরিয়ে আনা
         submitBtn.disabled = false;
         submitBtn.innerText = "সদস্যপদ আবেদন জমা দিন";
         submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
