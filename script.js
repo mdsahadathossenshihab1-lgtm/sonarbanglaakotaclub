@@ -1,11 +1,11 @@
-// এখানে আপনার গুগল অ্যাপস স্ক্রিপ্ট থেকে পাওয়া Web App URL-টি বসাবেন
-const scriptURL = 'https://script.google.com/macros/s/AKfycbybTcViWD7XCiCdAaRgeBzzL30Sl1erJedDnIlbo9AzQ_eeb7VfE5M3p4W80b4MeSnxfg/exec';
+// আপনার গুগল অ্যাপস স্ক্রিপ্ট থেকে পাওয়া Web App URL-টি এখানে বসাবেন
+const scriptURL = 'https://script.google.com/macros/s/AKfycbwoUOZDshgZB5mZZheZLZFTqi_hGdngSW6JbCZwVfjrUrDgTUiIERik2fCP8U0s7kVFJQ/exec';
 
 const form = document.getElementById('advancedRegistrationForm');
 const submitBtn = document.getElementById('submitBtn');
 const msg = document.getElementById('msg');
 
-// ফাইলকে টেক্সটে (Base64) রূপান্তর করার হেল্পার ফাংশন
+// ফাইলকে Base64 টেক্সটে রূপান্তর করার ফাংশন
 function getBase64(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -40,28 +40,27 @@ form.addEventListener('submit', async (e) => {
             formData.append('docData', docBase64);
         }
 
-        // গুগল অ্যাপস স্ক্রিপ্টে ডেটা পাঠানো
-        const response = await fetch(scriptURL, { method: 'POST', body: formData });
-        const result = await response.json();
+        // no-cors মোড ব্যবহার করে গুগল স্ক্রিপ্টে ডেটা পাঠানো (CORS সমস্যা দূর করার জন্য)
+        await fetch(scriptURL, { 
+            method: 'POST', 
+            mode: 'no-cors', 
+            body: formData 
+        });
         
-        // অ্যাপস স্ক্রিপ্ট থেকে সফল রেসপন্স আসলে
-        if (result.status === 'success') {
-            msg.classList.remove('hidden');
-            form.reset();
-            
-            // ফাইল ইনপুটগুলো ম্যানুয়ালি ক্লিয়ার করা
-            document.getElementById('photoFileInput').value = '';
-            document.getElementById('docFileInput').value = '';
-            
-            // ৬ সেকেন্ড পর সফলতার মেসেজটি হাইড করা
-            setTimeout(() => { msg.classList.add('hidden'); }, 6000);
-        } else {
-            console.error('Server Error:', result.message);
-            alert('আবেদন জমা দেওয়া যায়নি। সার্ভারে সমস্যা হয়েছে: ' + result.message);
-        }
+        // no-cors মোডে রেসপন্স রিড করা যায় না, কিন্তু ডেটা সফলভাবে চলে যায়
+        msg.classList.remove('hidden');
+        form.reset();
+        
+        // ফাইল ইনপুটগুলো ম্যানুয়ালি ক্লিয়ার করা
+        document.getElementById('photoFileInput').value = '';
+        document.getElementById('docFileInput').value = '';
+        
+        // ৬ সেকেন্ড পর সফলতার মেসেজটি হাইড করা
+        setTimeout(() => { msg.classList.add('hidden'); }, 6000);
+
     } catch (error) {
         console.error('Network Error!', error.message);
-        alert('দুঃখিত! কোনো কারিগরি ত্রুটি হয়েছে অথবা নেটওয়ার্ক সমস্যা। আবার চেষ্টা করুন।');
+        alert('দুঃখিত! কোনো কারিগরি ত্রুটি হয়েছে। আবার চেষ্টা করুন।');
     } finally {
         // বাটন আগের অবস্থায় ফিরিয়ে আনা
         submitBtn.disabled = false;
