@@ -3,110 +3,246 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>সদস্য লগইন - সোনার বাংলা একতা ক্লাব</title>
+    <title>সদস্য লগইন ও ইউজার প্যানেল - সোনার বাংলা একতা ক্লাব</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Hind Siliguri', sans-serif; }
     </style>
 </head>
-<body class="bg-slate-100 min-h-screen flex items-center justify-center p-4">
+<body class="bg-slate-100 min-h-screen flex items-center justify-center py-12 px-4">
 
-    <div class="max-w-md w-full bg-white rounded-2xl shadow-2xl p-6 md:p-8 border border-slate-200">
-        <div class="text-center mb-6">
-            <h1 class="text-2xl font-bold text-red-600">সোনার বাংলা একতা ক্লাব</h1>
-            <p class="text-slate-500 text-sm mt-1">আপনার অ্যাকাউন্ট লগইন করুন</p>
+    <div id="loginBox" class="max-w-md w-full bg-white rounded-2xl shadow-2xl p-8 border border-slate-200">
+        <div class="text-center mb-8">
+            <h2 class="text-2xl font-bold text-slate-800">সদস্য লগইন প্যানেল</h2>
+            <p class="text-slate-500 text-sm mt-1">আপনার নিবন্ধিত মোবাইল নম্বর ও পাসওয়ার্ড দিয়ে প্রবেশ করুন</p>
         </div>
 
-        <form id="loginForm" class="space-y-5">
+        <form id="userLoginForm" class="space-y-6">
+            <input type="hidden" name="action" value="login">
+            
             <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">সদস্য ফোন নম্বর</label>
-                <input type="tel" id="memberPhone" required placeholder="017XXXXXXXX" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
+                <label class="block text-sm font-semibold text-gray-700 mb-2">মোবাইল নম্বর</label>
+                <input type="tel" name="memberPhone" required placeholder="01XXXXXXXXX" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
             </div>
 
             <div>
                 <label class="block text-sm font-semibold text-gray-700 mb-2">পাসওয়ার্ড</label>
-                <input type="password" id="password" required placeholder="আপনার গোপন পাসওয়ার্ড" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
+                <input type="password" name="password" required placeholder="******" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
             </div>
 
-            <button type="submit" id="loginBtn" class="w-full bg-red-600 text-white font-bold py-2.5 rounded-lg hover:bg-red-700 transition active:scale-[0.98]">লগইন করুন</button>
+            <button type="submit" id="loginBtn" class="w-full bg-gradient-to-r from-red-600 to-rose-600 text-white font-bold py-3 rounded-xl shadow-lg hover:from-red-700 hover:to-rose-700 transition active:scale-[0.98]">লগইন করুন</button>
+            
+            <div class="text-center mt-4">
+                <a href="index.html" class="text-sm text-red-600 hover:underline">নতুন সদস্য নিবন্ধন ফরম ↗</a>
+            </div>
         </form>
+    </div>
 
-        <div class="mt-6 text-center border-t pt-4">
-            <a href="index.html" class="text-sm text-slate-500 hover:text-red-600 transition underline">নতুন সদস্য নিবন্ধন ফর্ম</a>
+    <div id="dashboardBox" class="max-w-3xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200 hidden">
+        <div class="bg-gradient-to-r from-red-600 to-rose-600 p-6 text-white flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="text-center sm:text-left">
+                <h1 class="text-xl font-bold">সোনার বাংলা একতা ক্লাব - সদস্য ড্যাশবোর্ড</h1>
+                <p class="text-xs text-red-100">আপনার নিজস্ব প্রোফাইল ও তথ্য সংশোধন কেন্দ্র</p>
+            </div>
+            <button onclick="logoutUser()" class="bg-white text-red-600 hover:bg-red-50 px-4 py-2 rounded-lg text-xs font-bold transition shadow-md">লগআউট (Logout)</button>
         </div>
 
-        <div id="profileCard" class="hidden mt-6 bg-slate-50 p-5 rounded-xl border border-slate-200 text-center space-y-4">
-            <div class="flex justify-center">
-                <img id="userPhoto" src="" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-md bg-white" onerror="this.src='https://via.placeholder.com/150'">
+        <form id="userUpdateForm" class="p-6 md:p-10 space-y-8">
+            <input type="hidden" name="action" value="update">
+            <input type="hidden" id="hiddenUserPhone" name="memberPhone">
+
+            <div class="flex flex-col items-center pb-6 border-b border-slate-100">
+                <img id="userAvatar" src="" class="w-24 h-24 rounded-full object-cover border-2 border-red-500 shadow-md" onerror="this.src='https://via.placeholder.com/150'">
+                <h3 id="userHeaderName" class="text-lg font-bold text-slate-800 mt-2">সদস্য প্রোফাইল</h3>
+                <span class="bg-red-50 text-red-600 text-xs px-3 py-1 rounded-full font-bold mt-1">সক্রিয় সদস্য</span>
             </div>
+
             <div>
-                <h2 id="userName" class="text-xl font-bold text-slate-800"></h2>
-                <p id="userBlood" class="text-red-600 font-bold text-sm mt-0.5"></p>
-                <p id="userPhone" class="text-slate-500 text-xs mt-1"></p>
-                <p id="userAddress" class="text-slate-600 text-sm mt-2 font-medium bg-white p-2 rounded-lg border"></p>
+                <h2 class="text-base font-bold text-slate-800 mb-4 flex items-center text-red-600">📝 আপনার সম্পূর্ণ প্রোফাইল তথ্য সংশোধন করুন</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-sm">
+                    <div>
+                        <label class="block font-semibold text-gray-700 mb-1">নাম (বাংলায়)</label>
+                        <input type="text" id="uNameBn" name="nameBn" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-gray-700 mb-1">নাম (ইংরেজিতে)</label>
+                        <input type="text" id="uNameEn" name="nameEn" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-gray-700 mb-1">পিতার নাম</label>
+                        <input type="text" id="uFatherName" name="fatherName" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-gray-700 mb-1">مাতার নাম</label>
+                        <input type="text" id="uMotherName" name="motherName" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-gray-700 mb-1">জন্ম তারিখ</label>
+                        <input type="text" id="uDob" name="dob" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-gray-700 mb-1">রক্তের গ্রুপ</label>
+                        <input type="text" id="uBlood" name="bloodGroup" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-gray-700 mb-1">ধর্ম</label>
+                        <input type="text" id="uReligion" name="religion" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-gray-700 mb-1">উচ্চতা</label>
+                        <input type="text" id="uHeight" name="height" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-gray-700 mb-1">NID/জন্মসনদ নম্বর</label>
+                        <input type="text" id="uDocIdNumber" name="docIdNumber" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-gray-700 mb-1">জরুরী যোগাযোগ নম্বর</label>
+                        <input type="text" id="uContactPhone" name="contactPhone" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-gray-700 mb-1">লগইন পাসওয়ার্ড পরিবর্তন করুন</label>
+                        <input type="text" id="uPassword" name="password" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500 bg-yellow-50/50">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-gray-700 mb-1">মোবাইল নম্বর (পরিবর্তনযোগ্য নয়)</label>
+                        <input type="text" id="uPhoneDisplay" readonly class="w-full p-2.5 border rounded-lg bg-slate-100 cursor-not-allowed text-gray-500">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block font-semibold text-gray-700 mb-1">বর্তমান ঠিকানা</label>
+                        <textarea id="uPresentAddress" name="presentAddress" rows="1" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500"></textarea>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block font-semibold text-gray-700 mb-1">স্থায়ী ঠিকানা</label>
+                        <textarea id="uPermanentAddress" name="permanentAddress" rows="1" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500"></textarea>
+                    </div>
+                </div>
             </div>
-            <p class="text-green-600 font-bold text-sm bg-green-50 py-1.5 rounded-lg border border-green-200">✓ আপনার অ্যাকাউন্ট সচল রয়েছে</p>
-        </div>
+
+            <div class="pt-4 flex gap-4">
+                <button type="submit" id="saveBtn" class="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white font-bold py-3 rounded-xl shadow-md hover:from-green-700 hover:to-emerald-700 transition active:scale-[0.98]">আমার তথ্য আপডেট করুন</button>
+            </div>
+        </form>
     </div>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycby4wEo_INBFJvNbn8AUIbVtD0WY9exumxNdeM5Q-y5qrmVWisKgkf9ou0w0UkQ2rvSaTQ/exec';
+        // আপনার অ্যাপস স্ক্রিপ্ট ওয়েব অ্যাপ URL
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyKq6TvTb-U1WNZfvr0wYxZIuRs_l2JUivtj1gJfLcaO8KYZ7PgqCfXs1NpC6dpQSa9-g/exec';
 
-        const loginForm = document.getElementById('loginForm');
-        const loginBtn = document.getElementById('loginBtn');
-        const profileCard = document.getElementById('profileCard');
-
-        loginForm.addEventListener('submit', async (e) => {
+        // ১. লগইন সাবমিট হ্যান্ডলার
+        document.getElementById('userLoginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+            const btn = document.getElementById('loginBtn');
+            btn.disabled = true;
+            btn.innerText = "যাচাই করা হচ্ছে...";
 
-            loginBtn.disabled = true;
-            loginBtn.innerText = "যাচাই করা হচ্ছে...";
-            
-            const phoneVal = document.getElementById('memberPhone').value.trim();
-            const passVal = document.getElementById('password').value.trim();
-
-            // এখানে URL-encoded ফরম্যাটে ডেটা পাঠানো হচ্ছে যাতে Apps Script সহজে পড়তে পারে
-            const payload = new URLSearchParams();
-            payload.append("action", "login");
-            payload.append("memberPhone", phoneVal);
-            payload.append("password", passVal);
+            const formData = new FormData(e.target);
+            const payload = new URLSearchParams(formData);
 
             try {
-                const response = await fetch(scriptURL, { 
-                    method: 'POST', 
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: payload.toString() 
+                // অ্যাপস স্ক্রিপ্ট থেকে লগইন ভেরিফাই ও ফুল ডাটা ফেচ করা হচ্ছে
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: payload.toString()
                 });
                 
-                const result = await response.json();
-
-                if (result.status === "success") {
-                    alert("🎉 লগইন সফল হয়েছে!");
+                // প্রথমে আমরা সব ইউজারের ডাটাবেজ থেকে এই ইউজারের সম্পূর্ণ অবজেক্ট তুলে আনব নিখুঁত প্রদর্শনের জন্য
+                const loginResult = await response.json();
+                
+                if (loginResult.status === "success") {
+                    // লগইন সফল হলে, সব মেম্বারের ডাটা থেকে এই ইউজারের ফুল ২৬টি কলামের ডাটা ম্যাচ করে ফিল্ডে বসাবো
+                    const allDataResponse = await fetch(scriptURL);
+                    const allMembers = await allDataResponse.json();
+                    const fullUser = allMembers.find(u => u.phone.toString().trim() === loginResult.user.phone.toString().trim());
                     
-                    loginForm.classList.add('hidden');
-                    profileCard.classList.remove('hidden');
-
-                    document.getElementById('userName').innerText = result.user.name;
-                    document.getElementById('userBlood').innerText = "রক্তের গ্রুপ: " + result.user.blood;
-                    document.getElementById('userPhone').innerText = "মোবাইল: " + result.user.phone;
-                    document.getElementById('userAddress').innerText = "বর্তমান ঠিকানা: " + result.user.address;
-                    document.getElementById('userPhoto').src = result.user.photo;
-
+                    if(fullUser) {
+                        showDashboard(fullUser);
+                    } else {
+                        alert("আপনার তথ্য ডাটাবেজে পাওয়া যায়নি।");
+                    }
                 } else {
-                    alert("❌ ভুল ফোন নম্বর অথবা পাসওয়ার্ড! আবার চেষ্টা করুন।");
+                    alert("ভুল মোবাইল নম্বর অথবা পাসওয়ার্ড! আবার চেষ্টা করুন।");
                 }
-
             } catch (error) {
-                console.error('Error!', error);
-                alert("কারিগরি ত্রুটি হয়েছে বা ডেটা খুঁজে পাওয়া যায়নি। আপনার গুগল শিটে পাসওয়ার্ড কলামটি ফাঁকা কিনা চেক করুন।");
+                console.error(error);
+                alert("লগইন করতে সমস্যা হয়েছে বা নেটওয়ার্ক ত্রুটি!");
             } finally {
-                loginBtn.disabled = false;
-                loginBtn.innerText = "লগইন করুন";
+                btn.disabled = false;
+                btn.innerText = "লগইন করুন";
             }
         });
+
+        // ২. ড্যাশবোর্ডে সব তথ্য পপুলেট বা প্রদর্শন করার ফাংশন
+        function showDashboard(user) {
+            document.getElementById('loginBox').classList.add('hidden');
+            document.getElementById('dashboardBox').classList.remove('hidden');
+
+            // হেডার ও পিকচার সেট
+            document.getElementById('userAvatar').src = user.photo;
+            document.getElementById('userHeaderName').innerText = user.nameBn;
+            
+            // হিডেন ও ডিসপ্লে ফোন ফিল্ড
+            document.getElementById('hiddenUserPhone').value = user.phone;
+            document.getElementById('uPhoneDisplay').value = user.phone;
+
+            // ফর্মের বাকি সব ইনপুট ফিল্ডে হুবহু শিটের ডাটা বসানো
+            document.getElementById('uNameBn').value = user.nameBn;
+            document.getElementById('uNameEn').value = user.nameEn;
+            document.getElementById('uFatherName').value = user.fatherName;
+            document.getElementById('uMotherName').value = user.motherName;
+            document.getElementById('uDob').value = user.dob;
+            document.getElementById('uBlood').value = user.blood;
+            document.getElementById('uReligion').value = user.religion;
+            document.getElementById('uHeight').value = user.height;
+            document.getElementById('uDocIdNumber').value = user.docIdNumber;
+            document.getElementById('uContactPhone').value = user.contactPhone;
+            document.getElementById('uPassword').value = user.password;
+            document.getElementById('uPresentAddress').value = user.presentAddress;
+            document.getElementById('uPermanentAddress').value = user.permanentAddress;
+        }
+
+        // ৩. ইউজারের নিজের তথ্য নিজে আপডেট করার হ্যান্ডলার
+        document.getElementById('userUpdateForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('saveBtn');
+            btn.disabled = true;
+            btn.innerText = "তথ্য আপডেট হচ্ছে...";
+
+            const formData = new FormData(e.target);
+            const payload = new URLSearchParams(formData);
+
+            try {
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: payload.toString()
+                });
+                const txt = await response.text();
+                if(txt === "Updated") {
+                    alert("🎉 আপনার তথ্য সফলভাবে গুগল শিটে আপডেট করা হয়েছে!");
+                } else {
+                    alert("❌ তথ্য আপডেট করা যায়নি।");
+                }
+            } catch (error) {
+                console.error(error);
+                alert("কারিগরি ত্রুটি বা নেটওয়ার্ক সমস্যা!");
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "আমার তথ্য আপডেট করুন";
+            }
+        });
+
+        // ৪. লগআউট ফাংশন
+        function logoutUser() {
+            if(confirm("আপনি কি আপনার মেম্বার প্যানেল থেকে লগআউট করতে চান?")) {
+                document.getElementById('dashboardBox').classList.add('hidden');
+                document.getElementById('loginBox').classList.remove('hidden');
+                document.getElementById('userLoginForm').reset();
+            }
+        }
     </script>
 </body>
 </html>
