@@ -1,11 +1,11 @@
+// এখানে আপনার গুগল অ্যাপস স্ক্রিপ্ট থেকে পাওয়া Web App URL-টি বসাবেন
+const scriptURL = 'https://script.google.com/macros/s/AKfycbybTcViWD7XCiCdAaRgeBzzL30Sl1erJedDnIlbo9AzQ_eeb7VfE5M3p4W80b4MeSnxfg/exec';
+
 const form = document.getElementById('advancedRegistrationForm');
 const submitBtn = document.getElementById('submitBtn');
 const msg = document.getElementById('msg');
 
-// এখানে আপনার গুগল অ্যাপস স্ক্রিপ্ট (Web App URL) বসাবেন
-const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';
-
-// ফাইলকে Base64 টেক্সটে রূপান্তর করার ফাংশন
+// ফাইলকে টেক্সটে (Base64) রূপান্তর করার হেল্পার ফাংশন
 function getBase64(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -18,6 +18,7 @@ function getBase64(file) {
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     
+    // বাটন লক ও প্রসেসিং টেক্সট দেখানো
     submitBtn.disabled = true;
     submitBtn.innerText = "ফাইল ও আবেদন প্রসেস হচ্ছে, দয়া করে অপেক্ষা করুন...";
     submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
@@ -29,35 +30,40 @@ form.addEventListener('submit', async (e) => {
         const photoFile = document.getElementById('photoFileInput').files[0];
         const docFile = document.getElementById('docFileInput').files[0];
 
-        // Base64 কনভার্ট করে ডাটাতে যুক্ত করা
+        // ফাইল দুটিকে Base64-এ কনভার্ট করে ফর্মে যুক্ত করা
         if (photoFile) {
             const photoBase64 = await getBase64(photoFile);
-            formData.append('photoData', photoBase64);
-            formData.append('photoName', photoFile.name);
+            formData.append('photoData', photoBase64); 
         }
         if (docFile) {
             const docBase64 = await getBase64(docFile);
             formData.append('docData', docBase64);
-            formData.append('docName', docFile.name);
         }
 
-        // রিকোয়েস্ট পাঠানো
+        // গুগল অ্যাপস স্ক্রিপ্টে ডেটা পাঠানো
         const response = await fetch(scriptURL, { method: 'POST', body: formData });
+        const result = await response.json();
         
-        if (response.ok) {
+        // অ্যাপস স্ক্রিপ্ট থেকে সফল রেসপন্স আসলে
+        if (result.status === 'success') {
             msg.classList.remove('hidden');
             form.reset();
+            
+            // ফাইল ইনপুটগুলো ম্যানুয়ালি ক্লিয়ার করা
             document.getElementById('photoFileInput').value = '';
             document.getElementById('docFileInput').value = '';
             
+            // ৬ সেকেন্ড পর সফলতার মেসেজটি হাইড করা
             setTimeout(() => { msg.classList.add('hidden'); }, 6000);
         } else {
-            alert('আবেদন জমা দেওয়া যায়নি। আবার চেষ্টা করুন।');
+            console.error('Server Error:', result.message);
+            alert('আবেদন জমা দেওয়া যায়নি। সার্ভারে সমস্যা হয়েছে: ' + result.message);
         }
     } catch (error) {
-        console.error('Error!', error.message);
-        alert('দুঃখিত! কোনো কারিগরি ত্রুটি হয়েছে। আবার চেষ্টা করুন।');
+        console.error('Network Error!', error.message);
+        alert('দুঃখিত! কোনো কারিগরি ত্রুটি হয়েছে অথবা নেটওয়ার্ক সমস্যা। আবার চেষ্টা করুন।');
     } finally {
+        // বাটন আগের অবস্থায় ফিরিয়ে আনা
         submitBtn.disabled = false;
         submitBtn.innerText = "সদস্যপদ আবেদন জমা দিন";
         submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
