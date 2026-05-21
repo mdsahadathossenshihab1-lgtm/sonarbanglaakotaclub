@@ -17,7 +17,6 @@
             <h1 class="text-3xl font-bold mb-2">সোনার বাংলা একতা ক্লাব</h1>
             <p class="text-red-100 text-base">অফিসিয়াল সদস্যপদ আবেদন এবং নিবন্ধন ফর্ম</p>
             
-            <!-- লগইন বাটন (যদি আগে থেকেই মেম্বার থাকে) -->
             <div class="mt-4">
                 <a href="login.html" class="inline-block bg-white text-red-600 px-4 py-1.5 rounded-full text-sm font-bold shadow-md hover:bg-red-50 transition">আমার অলরেডি তথ্য সাবমিট করা আছে</a>
             </div>
@@ -25,7 +24,6 @@
 
         <form id="advancedRegistrationForm" class="p-6 md:p-10 space-y-8">
             
-            <!-- হিডেন অ্যাকশন ফিল্ড -->
             <input type="hidden" name="action" value="register">
 
             <div>
@@ -54,7 +52,6 @@
                 </div>
             </div>
 
-            <!-- নতুন সেকশন: লগইন তথ্য (পাসওয়ার্ড) -->
             <div>
                 <h2 class="text-xl font-bold text-slate-800 mb-4 pb-2 border-b-2 border-red-500 flex items-center">
                     <span class="bg-red-600 text-white rounded-full w-6 h-6 inline-flex items-center justify-center text-sm mr-2">২</span>
@@ -122,7 +119,7 @@
             <div>
                 <h2 class="text-xl font-bold text-slate-800 mb-4 pb-2 border-b-2 border-red-500 flex items-center">
                     <span class="bg-red-600 text-white rounded-full w-6 h-6 inline-flex items-center justify-center text-sm mr-2">৪</span>
-                    ঠিকানা ও ডকুমেন্টস
+                    ঠিকানা ও যোগাযোগ ব্যবস্থা
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
@@ -132,6 +129,13 @@
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-2">স্থায়ী ঠিকানা <span class="text-red-500">*</span></label>
                         <textarea name="permanentAddress" rows="2" required placeholder="গ্রাম, ডাকঘর, থানা, জেলা" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition resize-none"></textarea>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">যোগাযোগের ফোন নম্বর (জরুরী) <span class="text-red-500">*</span></label>
+                        <input type="tel" name="contactPhone" required placeholder="01XXXXXXXXX" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
                     </div>
                 </div>
 
@@ -148,11 +152,15 @@
             </div>
 
             <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
-                <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center text-red-600">📋 ঘোষণা পত্র</h2>
+                <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center text-red-600">📋 ঘোষণা পত্র ও অঙ্গিকারনামা</h2>
                 <div class="space-y-4">
                     <label class="flex items-start p-3 bg-white border border-gray-200 rounded-lg cursor-pointer hover:bg-red-50/30 transition">
                         <input type="checkbox" name="rule1" required class="mt-1 text-red-600 h-4 w-4 rounded">
-                        <span class="ml-3 text-sm text-gray-700">আমি ক্লাবের সকল নিয়ম ও শৃঙ্খলা মেনে চলতে বাধ্য থাকবো। <span class="text-red-500">*</span></span>
+                        <span class="ml-3 text-sm text-gray-700 leading-relaxed">আমি এমন কোনো অপরাধমূলক বা অনৈতিক কাজে জড়াবো না, যা ক্লাব-এর সামাজিক মর্যাদা ও সুনাম নষ্ট করে। <span class="text-red-500">*</span></span>
+                    </label>
+                    <label class="flex items-start p-3 bg-white border border-gray-200 rounded-lg cursor-pointer hover:bg-red-50/30 transition">
+                        <input type="checkbox" name="rule2" required class="mt-1 text-red-600 h-4 w-4 rounded">
+                        <span class="ml-3 text-sm text-gray-700 leading-relaxed">আমি সম্মান ও শ্রদ্ধার সাথে ক্লাব-এর নিয়ম ও অধিকার সমূহ মেনে চলার শপথ করছি। যদি আমি এই অঙ্গীকারনামার কোনো ধারা বা ক্লাব-এর শৃঙ্খলা ভঙ্গ করি, তাহলে ক্লাব কর্তৃপক্ষ আমার সদস্যপদ বাতিল সহ যেকোনো সিদ্ধান্ত নেওয়ার পূর্ণ অধিকার রাখবে। <span class="text-red-500">*</span></span>
                     </label>
                 </div>
             </div>
@@ -176,10 +184,21 @@
         </form>
 
         <div class="p-6 bg-slate-50 border-t border-slate-200 text-center">
-            <a href="admin.html" class="text-slate-500 text-sm hover:text-red-600 transition underline">অ্যাডমিন লগইন (ক্লাব কর্তৃপক্ষ)</a>
+            <button onclick="accessAdmin()" class="text-slate-500 text-sm hover:text-red-600 transition underline focus:outline-none">অ্যাডমিন লগইন (ক্লাব কর্তৃপক্ষ)</button>
         </div>
     </div>
 
+    <script>
+        function accessAdmin() {
+            var password = prompt("অ্যাডমিন প্যানেলে প্রবেশের জন্য গোপন পাসওয়ার্ডটি দিন:");
+            // এখানে আপনি আপনার ইচ্ছেমতো পাসওয়ার্ড সেট করতে পারেন, আমি 'admin1234' দিয়েছি
+            if (password === "admin1234") {
+                window.location.href = "admin.html";
+            } else if (password !== null) {
+                alert("ভুল পাসওয়ার্ড! আপনি অ্যাডমিন প্যানেলে প্রবেশের যোগ্য নন।");
+            }
+        }
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
