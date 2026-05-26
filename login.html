@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>সদস্য লগইন ও ইউজার প্যানেল - সোনার বাংলা একতা ক্লাব</title>
+    
+    <link rel="icon" type="image/png" href="https://i.ibb.co.com/spy8c0Q6/file-00000000e6c07208baa6a67b690fa7eb.png">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -15,7 +19,7 @@
     <div id="loginBox" class="max-w-md w-full bg-white rounded-2xl shadow-2xl p-8 border border-slate-200">
         <div class="text-center mb-8">
             <h2 class="text-2xl font-bold text-slate-800">সদস্য লগইন প্যানেল</h2>
-            <p class="text-slate-500 text-sm mt-1">আপনার নিবন্ধিত মোবাইল নম্বর ও পাসওয়ার্ড দিয়ে প্রবেশ করুন</p>
+            <p class="text-slate-500 text-sm mt-1">আপনার নিবন্ধিত মোবাইল নম্বর ও পাসওয়ার্ড দিয়ে প্রবেশ করুন</p>
         </div>
 
         <form id="userLoginForm" class="space-y-6">
@@ -27,7 +31,7 @@
             </div>
 
             <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">পাসওয়ার্ড</label>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">পাসওয়ার্ড</label>
                 <input type="password" name="password" required placeholder="******" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
             </div>
 
@@ -75,7 +79,7 @@
                         <input type="text" id="uFatherName" name="fatherName" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500">
                     </div>
                     <div>
-                        <label class="block font-semibold text-gray-700 mb-1">مাতার নাম</label>
+                        <label class="block font-semibold text-gray-700 mb-1">মাতার নাম</label>
                         <input type="text" id="uMotherName" name="motherName" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500">
                     </div>
                     <div>
@@ -107,7 +111,7 @@
                         <input type="text" id="uPassword" name="password" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500 bg-yellow-50/50">
                     </div>
                     <div>
-                        <label class="block font-semibold text-gray-700 mb-1">মোবাইল নম্বর (পরিবর্তনযোগ্য নয়)</label>
+                        <label class="block font-semibold text-gray-700 mb-1">মোবাইল নম্বর (পরিবর্তনযোগ্য নয়)</label>
                         <input type="text" id="uPhoneDisplay" readonly class="w-full p-2.5 border rounded-lg bg-slate-100 cursor-not-allowed text-gray-500">
                     </div>
                     <div class="md:col-span-2">
@@ -115,7 +119,7 @@
                         <textarea id="uPresentAddress" name="presentAddress" rows="1" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500"></textarea>
                     </div>
                     <div class="md:col-span-2">
-                        <label class="block font-semibold text-gray-700 mb-1">স্থায়ী ঠিকানা</label>
+                        <label class="block font-semibold text-gray-700 mb-1">স্থায়ী ঠিকানা</label>
                         <textarea id="uPermanentAddress" name="permanentAddress" rows="1" required class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-red-500"></textarea>
                     </div>
                 </div>
@@ -128,7 +132,6 @@
     </div>
 
     <script>
-        // আপনার অ্যাপস স্ক্রিপ্ট ওয়েব অ্যাপ URL
         const scriptURL = 'https://script.google.com/macros/s/AKfycbw52A3KWKtYlWJZ92j51unj5wi1011ku_gNzJUGMKoOOrRP1omadWRqZiDMJmK8K_d-Dw/exec';
 
         // ১. লগইন সাবমিট হ্যান্ডলার
@@ -142,18 +145,15 @@
             const payload = new URLSearchParams(formData);
 
             try {
-                // অ্যাপস স্ক্রিপ্ট থেকে লগইন ভেরিফাই ও ফুল ডাটা ফেচ করা হচ্ছে
                 const response = await fetch(scriptURL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: payload.toString()
                 });
                 
-                // প্রথমে আমরা সব ইউজারের ডাটাবেজ থেকে এই ইউজারের সম্পূর্ণ অবজেক্ট তুলে আনব নিখুঁত প্রদর্শনের জন্য
                 const loginResult = await response.json();
                 
                 if (loginResult.status === "success") {
-                    // লগইন সফল হলে, সব মেম্বারের ডাটা থেকে এই ইউজারের ফুল ২৬টি কলামের ডাটা ম্যাচ করে ফিল্ডে বসাবো
                     const allDataResponse = await fetch(scriptURL);
                     const allMembers = await allDataResponse.json();
                     const fullUser = allMembers.find(u => u.phone.toString().trim() === loginResult.user.phone.toString().trim());
@@ -161,34 +161,31 @@
                     if(fullUser) {
                         showDashboard(fullUser);
                     } else {
-                        alert("আপনার তথ্য ডাটাবেজে পাওয়া যায়নি।");
+                        alert("আপনার তথ্য ডাটাবেজে পাওয়া যায়নি।");
                     }
                 } else {
-                    alert("ভুল মোবাইল নম্বর অথবা পাসওয়ার্ড! আবার চেষ্টা করুন।");
+                    alert("ভুল মোবাইল নম্বর অথবা পাসওয়ার্ড! আবার চেষ্টা করুন।");
                 }
             } catch (error) {
                 console.error(error);
-                alert("লগইন করতে সমস্যা হয়েছে বা নেটওয়ার্ক ত্রুটি!");
+                alert("লগইন করতে সমস্যা হয়েছে বা নেটওয়ার্ক ত্রুটি!");
             } finally {
                 btn.disabled = false;
                 btn.innerText = "লগইন করুন";
             }
         });
 
-        // ২. ড্যাশবোর্ডে সব তথ্য পপুলেট বা প্রদর্শন করার ফাংশন
+        // ২. ড্যাশবোর্ডে সব তথ্য পপুলেট করার ফাংশন
         function showDashboard(user) {
             document.getElementById('loginBox').classList.add('hidden');
             document.getElementById('dashboardBox').classList.remove('hidden');
 
-            // হেডার ও পিকচার সেট
             document.getElementById('userAvatar').src = user.photo;
             document.getElementById('userHeaderName').innerText = user.nameBn;
             
-            // হিডেন ও ডিসপ্লে ফোন ফিল্ড
             document.getElementById('hiddenUserPhone').value = user.phone;
             document.getElementById('uPhoneDisplay').value = user.phone;
 
-            // ফর্মের বাকি সব ইনপুট ফিল্ডে হুবহু শিটের ডাটা বসানো
             document.getElementById('uNameBn').value = user.nameBn;
             document.getElementById('uNameEn').value = user.nameEn;
             document.getElementById('uFatherName').value = user.fatherName;
@@ -222,13 +219,13 @@
                 });
                 const txt = await response.text();
                 if(txt === "Updated") {
-                    alert("🎉 আপনার তথ্য সফলভাবে গুগল শিটে আপডেট করা হয়েছে!");
+                    alert("🎉 আপনার তথ্য সফলভাবে গুগল শিটে আপডেট করা হয়েছে!");
                 } else {
-                    alert("❌ তথ্য আপডেট করা যায়নি।");
+                    alert("❌ তথ্য আপডেট করা যায়নি।");
                 }
             } catch (error) {
                 console.error(error);
-                alert("কারিগরি ত্রুটি বা নেটওয়ার্ক সমস্যা!");
+                alert("কারিগরি ত্রুটি বা নেটওয়ার্ক সমস্যা!");
             } finally {
                 btn.disabled = false;
                 btn.innerText = "আমার তথ্য আপডেট করুন";
