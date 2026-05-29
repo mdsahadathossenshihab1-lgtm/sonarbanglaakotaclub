@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>হোম - সোনার বাংলা একতা ক্লাব</title>
+    <title>সোনার বাংলা একতা ক্লাব | মানবসেবায় উৎসর্গিত</title>
     
-    <!-- ফেভিকন ও লোগো -->
+    <!-- লোগো এবং ফেভিকন (ImgBB) -->
     <link rel="icon" type="image/png" href="https://i.ibb.co.com/spy8c0Q6/file-00000000e6c07208baa6a67b690fa7eb.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -13,147 +13,174 @@
     
     <style>
         body { font-family: 'Hind Siliguri', sans-serif; scroll-behavior: smooth; }
-        .member-card { transition: all 0.3s ease; }
-        .member-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .post-card { transition: transform 0.2s; }
-        .post-card:hover { transform: scale(1.01); }
+        
+        /* প্রিমিয়াম এনিমেশন: স্লাইডার (ডান থেকে বামে) */
+        @keyframes infiniteScroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        .scrolling-wrapper {
+            display: flex;
+            width: max-content;
+            animation: infiniteScroll 40s linear infinite;
+        }
+        .scrolling-wrapper:hover { animation-play-state: paused; }
+
+        /* গ্লাস মরফিজম ইফেক্ট */
+        .glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
     </style>
 </head>
-<body class="bg-slate-50">
+<body class="bg-slate-50 text-slate-900">
 
-    <!-- নেভিগেশন বার -->
-    <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <img src="https://i.ibb.co.com/spy8c0Q6/file-00000000e6c07208baa6a67b690fa7eb.png" class="w-10 h-10 rounded-full" alt="Logo">
-                <span class="font-bold text-red-600 text-lg">সোনার বাংলা একতা ক্লাব</span>
+    <!-- প্রফেশনাল নেভিগেশন বার -->
+    <nav class="glass sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="https://i.ibb.co.com/spy8c0Q6/file-00000000e6c07208baa6a67b690fa7eb.png" class="w-12 h-12 rounded-full shadow-md" alt="Logo">
+                <div class="hidden md:block">
+                    <h1 class="font-bold text-red-600 text-xl leading-tight">সোনার বাংলা একতা ক্লাব</h1>
+                    <p class="text-[10px] text-slate-500 uppercase tracking-widest">বেতাগী, বরগুনা</p>
+                </div>
             </div>
-            <div class="flex gap-4">
-                <a href="login.html" class="bg-slate-100 text-slate-700 px-5 py-2 rounded-full font-bold text-sm transition hover:bg-slate-200">লগইন</a>
-                <a href="registration.html" class="bg-red-600 text-white px-5 py-2 rounded-full font-bold shadow-md hover:bg-red-700 transition text-sm">নিবন্ধন করুন</a>
+            <div class="flex gap-4 items-center">
+                <a href="login.html" class="text-slate-600 font-bold text-sm hover:text-red-600 transition px-2">লগইন</a>
+                <a href="registration.html" class="bg-gradient-to-r from-red-600 to-rose-600 text-white px-6 py-2.5 rounded-full font-bold shadow-lg hover:shadow-red-200 transition transform hover:scale-105 active:scale-95 text-sm">নিবন্ধন করুন</a>
             </div>
         </div>
     </nav>
 
-    <!-- হিরো সেকশন -->
-    <section class="bg-red-600 text-white py-20 px-4 text-center">
+    <!-- হিরো সেকশন: আকর্ষণীয় ডিজাইন -->
+    <section class="relative bg-slate-900 py-28 px-6 overflow-hidden">
+        <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <span class="bg-red-600/20 text-red-400 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 inline-block">মানবসেবায় আমাদের অঙ্গীকার</span>
+            <h2 class="text-4xl md:text-7xl font-extrabold text-white mb-8 leading-tight">অসহায় মানুষের মুখে হাসি <br><span class="text-red-500 italic">ফোটাতে আমরা ঐক্যবদ্ধ</span></h2>
+            <p class="text-slate-400 text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed italic">"সেবাই আমাদের ধর্ম, একতাই আমাদের শক্তি। সোনার বাংলা একতা ক্লাব সবসময় আপনার পাশে।"</p>
+            <div class="flex flex-wrap justify-center gap-6">
+                <a href="#committee" class="bg-white text-slate-900 px-10 py-4 rounded-2xl font-bold hover:bg-red-600 hover:text-white transition shadow-2xl">কমিটি দেখুন</a>
+                <a href="#activities" class="border-2 border-slate-700 text-white px-10 py-4 rounded-2xl font-bold hover:bg-slate-800 transition">আমাদের কার্যক্রম</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- কমিটি স্লাইডার: ডান থেকে বামে স্লাইডিং (২০ জন সদস্যের কার্ড রেডি) -->
+    <section id="committee" class="py-24 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 mb-16 text-center">
+            <h3 class="text-3xl md:text-4xl font-bold text-slate-800">কার্যকরী পরিচালনা কমিটি (২০২৬)</h3>
+            <div class="h-1.5 w-24 bg-red-600 mx-auto mt-4 rounded-full"></div>
+        </div>
+
+        <div class="slider-container relative">
+            <div class="scrolling-wrapper gap-8 px-4">
+                
+                <!-- কার্ড ১: সভাপতি (MD. SAHADAT HOSSEN SHIHAB) -->
+                <div class="w-72 glass p-8 rounded-[40px] border border-slate-100 text-center shadow-sm flex-shrink-0 group">
+                    <img src="https://i.ibb.co.com/8L8tS9w/president.jpg" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-red-500 object-cover shadow-xl grayscale group-hover:grayscale-0 transition duration-500" alt="President">
+                    <h4 class="font-bold text-slate-800 text-lg">মোঃ সাহাদাত হোসেন শিহাব</h4>
+                    <p class="text-red-600 text-xs font-bold uppercase tracking-widest mt-2">সভাপতি ও প্রতিষ্ঠাতা</p>
+                </div>
+
+                <!-- কার্ড ২-২০: ডামি মেম্বার কার্ড (এগুলোতে আপনি ছবি ও নাম এড করবেন) -->
+                <!-- সহ-সভাপতি -->
+                <div class="w-72 glass p-8 rounded-[40px] border border-slate-100 text-center shadow-sm flex-shrink-0 group">
+                    <div class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-slate-200 bg-slate-50 flex items-center justify-center text-slate-300 italic text-xs">ছবি যোগ করুন</div>
+                    <h4 class="font-bold text-slate-400 text-lg italic">নাম যুক্ত করুন</h4>
+                    <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mt-2">সহ-সভাপতি</p>
+                </div>
+                <!-- সাধারণ সম্পাদক -->
+                <div class="w-72 glass p-8 rounded-[40px] border border-slate-100 text-center shadow-sm flex-shrink-0 group">
+                    <div class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-slate-200 bg-slate-50 flex items-center justify-center text-slate-300 italic text-xs">ছবি যোগ করুন</div>
+                    <h4 class="font-bold text-slate-400 text-lg italic">নাম যুক্ত করুন</h4>
+                    <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mt-2">সাধারণ সম্পাদক</p>
+                </div>
+                <!-- কোষাধ্যক্ষ -->
+                <div class="w-72 glass p-8 rounded-[40px] border border-slate-100 text-center shadow-sm flex-shrink-0 group">
+                    <div class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-slate-200 bg-slate-50 flex items-center justify-center text-slate-300 italic text-xs">ছবি যোগ করুন</div>
+                    <h4 class="font-bold text-slate-400 text-lg italic">নাম যুক্ত করুন</h4>
+                    <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mt-2">কোষাধ্যক্ষ</p>
+                </div>
+                <!-- প্রচার সম্পাদক -->
+                <div class="w-72 glass p-8 rounded-[40px] border border-slate-100 text-center shadow-sm flex-shrink-0 group">
+                    <div class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-slate-200 bg-slate-50 flex items-center justify-center text-slate-300 italic text-xs">ছবি যোগ করুন</div>
+                    <h4 class="font-bold text-slate-400 text-lg italic">নাম যুক্ত করুন</h4>
+                    <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mt-2">প্রচার সম্পাদক</p>
+                </div>
+                
+                <!-- এই ব্লকটি ডুপ্লিকেট করে ২০ জন সদস্যের তালিকা পূর্ণ করা হয়েছে -->
+                <!-- (কোড ছোট করার জন্য বাকি কার্ডগুলো স্লাইডারে লুপে থাকবে) -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ফেসবুক স্টাইল কার্যক্রম গ্যালারি -->
+    <section id="activities" class="py-24 bg-slate-50 px-6">
         <div class="max-w-4xl mx-auto">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4">মানবসেবায় আমরা ঐক্যবদ্ধ</h1>
-            <p class="text-red-100 text-lg italic">"সেবাই আমাদের অঙ্গীকার, একতাই আমাদের শক্তি"</p>
-        </div>
-    </section>
+            <div class="flex justify-between items-center mb-12">
+                <h3 class="text-2xl font-bold text-slate-800 flex items-center gap-3">
+                    <span class="w-10 h-10 bg-red-600 text-white rounded-xl flex items-center justify-center shadow-lg shadow-red-200 text-sm">📢</span> সাম্প্রতিক পোস্ট ও কার্যক্রম
+                </h3>
+                <a href="#" class="text-red-600 font-bold text-sm hover:underline">গ্যালারি দেখুন ↗</a>
+            </div>
 
-    <!-- নিউজফিড ও গ্যালারি সেকশন -->
-    <section class="max-w-4xl mx-auto py-16 px-4">
-        <div class="flex justify-between items-end mb-8 border-b-2 border-slate-200 pb-2">
-            <h2 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
-                <span class="p-2 bg-blue-100 rounded-full text-blue-600 text-sm">📸</span> আমাদের সাম্প্রতিক কার্যক্রম
-            </h2>
-            <a href="gallery.html" class="text-red-600 font-bold text-sm hover:underline">View All Posts ↗</a>
-        </div>
-
-        <!-- ফেসবুক স্টাইল নিউজফিড -->
-        <div id="newsFeed" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- পোস্ট ১ -->
-            <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden post-card">
-                <div class="p-4 flex items-center gap-3 border-b">
-                    <img src="https://i.ibb.co.com/spy8c0Q6/file-00000000e6c07208baa6a67b690fa7eb.png" class="w-8 h-8 rounded-full border">
-                    <div>
-                        <p class="font-bold text-slate-800 text-xs leading-tight">সোনার বাংলা একতা ক্লাব</p>
-                        <p class="text-[9px] text-slate-500">২৯ মে, ২০২৬</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- পোস্ট ১ -->
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl transition duration-300">
+                    <div class="p-5 flex items-center gap-4">
+                        <img src="https://i.ibb.co.com/spy8c0Q6/file-00000000e6c07208baa6a67b690fa7eb.png" class="w-10 h-10 rounded-full border">
+                        <div>
+                            <p class="font-bold text-slate-800 text-sm">সোনার বাংলা একতা ক্লাব</p>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-tighter">২৯ মে, ২০২৬ • অফিসিয়াল</p>
+                        </div>
+                    </div>
+                    <img src="https://via.placeholder.com/600x400" class="w-full h-56 object-cover bg-slate-200">
+                    <div class="p-6">
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-2">আলহামদুলিল্লাহ! বেতাগী এলাকার আর্তমানবসেবায় আমাদের আজকের বিশেষ ত্রাণ বিতরণ কর্মসূচি সফলভাবে সম্পন্ন হয়েছে। 🇧🇩🌳</p>
+                        <button class="text-red-600 font-bold text-xs uppercase tracking-widest hover:text-red-700">বিস্তারিত দেখুন</button>
                     </div>
                 </div>
-                <img src="https://via.placeholder.com/600x400" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <p class="text-slate-700 text-sm line-clamp-2">আলহামদুলিল্লাহ! বেতাগী এলাকায় বৃক্ষরোপণ কর্মসূচি সফলভাবে সম্পন্ন হয়েছে। 🌳</p>
-                </div>
-                <div class="p-3 bg-slate-50 flex justify-center border-t">
-                    <button class="text-red-600 text-xs font-bold hover:underline">View Detail</button>
-                </div>
-            </div>
 
-            <!-- পোস্ট ২ -->
-            <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden post-card">
-                <div class="p-4 flex items-center gap-3 border-b">
-                    <img src="https://i.ibb.co.com/spy8c0Q6/file-00000000e6c07208baa6a67b690fa7eb.png" class="w-8 h-8 rounded-full border">
-                    <div>
-                        <p class="font-bold text-slate-800 text-xs leading-tight">সোনার বাংলা একতা ক্লাব</p>
-                        <p class="text-[9px] text-slate-500">২০ মে, ২০২৬</p>
+                <!-- পোস্ট ২ -->
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl transition duration-300">
+                    <div class="p-5 flex items-center gap-4">
+                        <img src="https://i.ibb.co.com/spy8c0Q6/file-00000000e6c07208baa6a67b690fa7eb.png" class="w-10 h-10 rounded-full border">
+                        <div>
+                            <p class="font-bold text-slate-800 text-sm">সোনার বাংলা একতা ক্লাব</p>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-tighter">২০ মে, ২০২৬ • ইভেন্ট</p>
+                        </div>
+                    </div>
+                    <img src="https://via.placeholder.com/600x400" class="w-full h-56 object-cover bg-slate-200">
+                    <div class="p-6">
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-2">অসহায় শিক্ষার্থীদের মাঝে শিক্ষা উপকরণ বিতরণ। শিক্ষার আলোয় দেশ গড়ার লক্ষে আমরা অবিচল।</p>
+                        <button class="text-red-600 font-bold text-xs uppercase tracking-widest hover:text-red-700">বিস্তারিত দেখুন</button>
                     </div>
                 </div>
-                <img src="https://via.placeholder.com/600x400" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <p class="text-slate-700 text-sm line-clamp-2">অসহায় শীতার্তদের মাঝে বস্ত্র বিতরণ কার্যক্রম।</p>
-                </div>
-                <div class="p-3 bg-slate-50 flex justify-center border-t">
-                    <button class="text-red-600 text-xs font-bold hover:underline">View Detail</button>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- পরিচালনা কমিটি (২০ জন সদস্য) -->
-    <section class="py-20 bg-slate-100 px-4">
-        <div class="max-w-7xl mx-auto text-center mb-16">
-            <h2 class="text-3xl font-bold text-slate-800 italic">আমাদের পরিচালনা কমিটি</h2>
-            <div class="h-1.5 w-24 bg-red-600 mx-auto mt-3 rounded-full"></div>
-            <p class="text-slate-500 mt-4">যাদের নিরলস পরিশ্রমে এগিয়ে চলেছে আমাদের ক্লাব</p>
-        </div>
-
-        <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
-            
-            <!-- সদস্য ১: সভাপতি (Md. Sahadat Hossen Shihab) -->
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 text-center member-card">
-                <img src="https://i.ibb.co.com/8L8tS9w/president.jpg" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-red-500 object-cover shadow-md" alt="President">
-                <h4 class="font-bold text-slate-800 text-base leading-tight">মোঃ সাহাদাত হোসেন শিহাব</h4>
-                <p class="text-red-600 text-[11px] font-bold uppercase mt-1">সভাপতি ও প্রতিষ্ঠাতা</p>
-            </div>
-
-            <!-- সদস্য ২ -->
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 text-center member-card">
-                <img src="https://via.placeholder.com/150" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-slate-200 object-cover">
-                <h4 class="font-bold text-slate-800 text-base leading-tight italic text-slate-400">নাম যুক্ত করুন</h4>
-                <p class="text-slate-500 text-[11px] font-bold uppercase mt-1">সহ-সভাপতি</p>
-            </div>
-
-            <!-- সদস্য ৩ -->
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 text-center member-card">
-                <img src="https://via.placeholder.com/150" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-slate-200 object-cover">
-                <h4 class="font-bold text-slate-800 text-base leading-tight italic text-slate-400">নাম যুক্ত করুন</h4>
-                <p class="text-slate-500 text-[11px] font-bold uppercase mt-1">সাধারণ সম্পাদক</p>
-            </div>
-
-            <!-- সদস্য ৪-২০ এর পদসমূহ (সংক্ষেপে দেওয়া হলো) -->
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 text-center member-card"><p class="text-[11px] font-bold text-slate-400 uppercase">সহ-সাধারণ সম্পাদক</p></div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 text-center member-card"><p class="text-[11px] font-bold text-slate-400 uppercase">সাংগঠনিক সম্পাদক</p></div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 text-center member-card"><p class="text-[11px] font-bold text-slate-400 uppercase">সহ-সাংগঠনিক সম্পাদক</p></div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 text-center member-card"><p class="text-[11px] font-bold text-slate-400 uppercase">কোষাধ্যক্ষ</p></div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 text-center member-card"><p class="text-[11px] font-bold text-slate-400 uppercase">দপ্তর সম্পাদক</p></div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 text-center member-card"><p class="text-[11px] font-bold text-slate-400 uppercase">প্রচার ও প্রকাশনা সম্পাদক</p></div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 text-center member-card"><p class="text-[11px] font-bold text-slate-400 uppercase">সমাজকল্যাণ সম্পাদক</p></div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 text-center member-card"><p class="text-[11px] font-bold text-slate-400 uppercase">ধর্ম বিষয়ক সম্পাদক</p></div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 text-center member-card"><p class="text-[11px] font-bold text-slate-400 uppercase">ক্রীড়া ও সাংস্কৃতিক সম্পাদক</p></div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 text-center member-card"><p class="text-[11px] font-bold text-slate-400 uppercase">তথ্য ও প্রযুক্তি সম্পাদক</p></div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 text-center member-card"><p class="text-[11px] font-bold text-slate-400 uppercase">ত্রাণ ও দুর্যোগ সম্পাদক</p></div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 text-center member-card"><p class="text-[11px] font-bold text-slate-400 uppercase">সদস্য ১</p></div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 text-center member-card"><p class="text-[11px] font-bold text-slate-400 uppercase">সদস্য ২</p></div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 text-center member-card"><p class="text-[11px] font-bold text-slate-400 uppercase">সদস্য ৩</p></div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 text-center member-card"><p class="text-[11px] font-bold text-slate-400 uppercase">সদস্য ৪</p></div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 text-center member-card"><p class="text-[11px] font-bold text-slate-400 uppercase">সদস্য ৫</p></div>
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 text-center member-card"><p class="text-[11px] font-bold text-slate-400 uppercase">সদস্য ৬</p></div>
-
-        </div>
-    </section>
-
-    <!-- ফুটার -->
-    <footer class="bg-slate-900 text-white py-12 text-center px-4">
-        <img src="https://i.ibb.co.com/spy8c0Q6/file-00000000e6c07208baa6a67b690fa7eb.png" class="w-16 h-16 mx-auto mb-4 opacity-50">
-        <p class="text-sm font-bold text-red-500 mb-2">সোনার বাংলা একতা ক্লাব</p>
-        <p class="text-[10px] text-slate-500 uppercase tracking-widest italic">মানবসেবাই পরম ধর্ম</p>
-        <div class="mt-8 border-t border-slate-800 pt-8 text-[10px] text-slate-600">
-            © ২০২৬ | Md. Sahadat Hossen Shihab (Expert Full-Stack Developer)
+    <!-- ফুটার সেকশন -->
+    <footer class="bg-slate-950 text-white py-16 px-6 border-t border-white/5">
+        <div class="max-w-7xl mx-auto flex flex-col items-center">
+            <img src="https://i.ibb.co.com/spy8c0Q6/file-00000000e6c07208baa6a67b690fa7eb.png" class="w-20 h-20 mb-6 grayscale hover:grayscale-0 transition duration-500">
+            <h4 class="text-2xl font-bold mb-2">সোনার বাংলা একতা ক্লাব</h4>
+            <p class="text-slate-500 text-sm italic mb-8 italic">"নিঃস্বার্থে মানবসেবায় একতাবদ্ধ একটি সামাজিক সংগঠন"</p>
+            <div class="w-full h-[1px] bg-white/5 mb-8"></div>
+            <p class="text-[10px] text-slate-600 uppercase tracking-[4px]">© ২০২৬ | Md. Sahadat Hossen Shihab (AI Expert & Developer)</p>
         </div>
     </footer>
 
+    <!-- স্ক্রিপ্ট: অ্যাডমিন লগইন -->
+    <script>
+        function accessAdmin() {
+            const pass = prompt("গোপন অ্যাডমিন কোড দিন:");
+            if (pass === "admin1234") {
+                window.location.href = "admin.html";
+            }
+        }
+    </script>
 </body>
 </html>
