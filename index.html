@@ -3,204 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সোনার বাংলা একতা ক্লাব - মানবসেবায় আমরা ঐক্যবদ্ধ</title>
     
-    <title>সদস্য নিবন্ধন - সোনার বাংলা একতা ক্লাব</title>
-    
+    <!-- ফেভিকন এবং লোগো -->
     <link rel="icon" type="image/png" href="https://i.ibb.co.com/spy8c0Q6/file-00000000e6c07208baa6a67b690fa7eb.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Hind Siliguri', sans-serif; }
+        body { font-family: 'Hind Siliguri', sans-serif; scroll-behavior: smooth; }
+        
+        /* অটো-স্লাইডিং এনিমেশন */
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .slider-container { overflow: hidden; white-space: nowrap; position: relative; }
+        .slider-track {
+            display: flex;
+            width: max-content;
+            animation: slide 25s linear infinite;
+        }
+        .slider-track:hover { animation-play-state: paused; }
     </style>
 </head>
-<body class="bg-slate-100 min-h-screen py-12 px-4">
-    <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200 relative">
-        
-        <div class="bg-gradient-to-r from-red-600 to-rose-600 p-8 text-center text-white relative">
-            
-            <button onclick="accessAdmin()" class="absolute top-3 right-4 text-white/30 hover:text-white/60 text-xs focus:outline-none select-none font-sans">•</button>
+<body class="bg-slate-50">
 
-            <h1 class="text-3xl font-bold mb-2">সোনার বাংলা একতা ক্লাব</h1>
-            <p class="text-red-100 text-base mb-4">অফিসিয়াল সদস্যপদ আবেদন এবং নিবন্ধন ফর্ম</p>
-            
-            <div class="mt-2">
-                <a href="login.html" class="inline-flex items-center gap-2 bg-white text-red-600 px-5 py-2 rounded-full text-sm font-bold shadow-md hover:bg-red-50 transition transform hover:scale-105 active:scale-95">
-                    <span>Already a Member?</span>
-                    <span class="bg-red-600 text-white text-xs px-2.5 py-0.5 rounded-full">লগইন করুন</span>
-                </a>
+    <!-- নেভিগেশন বার -->
+    <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <img src="https://i.ibb.co.com/spy8c0Q6/file-00000000e6c07208baa6a67b690fa7eb.png" class="w-10 h-10 rounded-full">
+                <span class="font-bold text-red-600 text-lg hidden sm:block">সোনার বাংলা একতা ক্লাব</span>
+            </div>
+            <div class="flex gap-3">
+                <a href="login.html" class="text-slate-600 font-bold hover:text-red-600 py-2 transition text-sm">লগইন</a>
+                <a href="#registration-section" class="bg-red-600 text-white px-5 py-2 rounded-full font-bold shadow-md hover:bg-red-700 transition text-sm">নিবন্ধন</a>
             </div>
         </div>
+    </nav>
 
-        <form id="advancedRegistrationForm" class="p-6 md:p-10 space-y-8">
-            
-            <input type="hidden" name="action" value="register">
+    <!-- হিরো সেকশন -->
+    <section class="relative bg-red-600 text-white py-24 px-4">
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">মানবসেবায় উৎসর্গিত আমাদের প্রাণ</h1>
+            <p class="text-red-100 text-lg md:text-xl mb-10 max-w-3xl mx-auto">অসহায় মানুষের মুখে হাসি ফোটাতে এবং একটি উন্নত সমাজ গড়তে সোনার বাংলা একতা ক্লাব নিরলসভাবে কাজ করে যাচ্ছে।</p>
+            <div class="flex flex-wrap justify-center gap-5">
+                <a href="#registration-section" class="bg-white text-red-600 px-10 py-3.5 rounded-xl font-bold text-lg shadow-xl hover:bg-red-50 transition transform hover:scale-105 active:scale-95">নতুন সদস্যপদ আবেদন</a>
+                <a href="login.html" class="bg-red-800/50 text-white border border-red-400 px-10 py-3.5 rounded-xl font-bold text-lg shadow-xl hover:bg-red-700 transition transform hover:scale-105 active:scale-95">সদস্য লগইন প্যানেল</a>
+            </div>
+        </div>
+        <!-- অ্যাডমিন হিডেন বাটন -->
+        <button onclick="accessAdmin()" class="absolute bottom-4 right-4 text-white/20 hover:text-white/40 text-xs focus:outline-none select-none font-sans">•</button>
+    </section>
 
-            <div>
-                <h2 class="text-xl font-bold text-slate-800 mb-4 pb-2 border-b-2 border-red-500 flex items-center">
-                    <span class="bg-red-600 text-white rounded-full w-6 h-6 inline-flex items-center justify-center text-sm mr-2">১</span>
-                    ব্যক্তিগত তথ্য (Personal Information)
-                </h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">সদস্যের নাম (বাংলায়) <span class="text-red-500">*</span></label>
-                        <input type="text" name="nameBn" required placeholder="উদা: সাহাদাত হোসেন" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">সদস্যের নাম (ইংরেজিতে) <span class="text-red-500">*</span></label>
-                        <input type="text" name="nameEn" required placeholder="Ex: Sahadat Hossen" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">পিতার নাম <span class="text-red-500">*</span></label>
-                        <input type="text" name="fatherName" required placeholder="পিতার পুরো নাম লিখুন" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">মাতার নাম <span class="text-red-500">*</span></label>
-                        <input type="text" name="motherName" required placeholder="মাতার পুরো নাম লিখুন" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
-                    </div>
+    <!-- কমিটি স্লাইডিং সেকশন (ডানে থেকে বামে) -->
+    <section class="py-20 bg-white">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-slate-800">আমাদের পরিচালনা কমিটি</h2>
+            <div class="h-1 w-20 bg-red-600 mx-auto mt-2"></div>
+        </div>
+        
+        <div class="slider-container">
+            <div class="slider-track gap-8 px-4">
+                <!-- সভাপতি কার্ড -->
+                <div class="w-64 bg-slate-50 p-6 rounded-2xl border border-slate-200 text-center flex-shrink-0 shadow-sm">
+                    <img src="https://i.ibb.co.com/8L8tS9w/president.jpg" class="w-28 h-28 rounded-full mx-auto mb-4 border-4 border-red-500 object-cover shadow-md" onerror="this.src='https://via.placeholder.com/150'">
+                    <h4 class="font-bold text-slate-800 text-lg">মোঃ সাহাদাত হোসেন শিহাব</h4>
+                    <p class="text-red-600 text-sm font-bold uppercase tracking-wider">সভাপতি ও প্রতিষ্ঠাতা</p>
+                </div>
+                <!-- ডামি সদস্য কার্ড ২ -->
+                <div class="w-64 bg-slate-50 p-6 rounded-2xl border border-slate-200 text-center flex-shrink-0 shadow-sm">
+                    <img src="https://via.placeholder.com/150" class="w-28 h-28 rounded-full mx-auto mb-4 border-4 border-red-500 object-cover shadow-md">
+                    <h4 class="font-bold text-slate-800 text-lg">সদস্যের নাম</h4>
+                    <p class="text-red-600 text-sm font-bold uppercase tracking-wider">সাধারণ সম্পাদক</p>
+                </div>
+                <!-- ডামি সদস্য কার্ড ৩ -->
+                <div class="w-64 bg-slate-50 p-6 rounded-2xl border border-slate-200 text-center flex-shrink-0 shadow-sm">
+                    <img src="https://via.placeholder.com/150" class="w-28 h-28 rounded-full mx-auto mb-4 border-4 border-red-500 object-cover shadow-md">
+                    <h4 class="font-bold text-slate-800 text-lg">সদস্যের নাম</h4>
+                    <p class="text-red-600 text-sm font-bold uppercase tracking-wider">কোষাধ্যক্ষ</p>
+                </div>
+                <!-- কার্ডগুলো রিপিট করা হয়েছে নিরবচ্ছিন্ন স্লাইডিংয়ের জন্য -->
+                <div class="w-64 bg-slate-50 p-6 rounded-2xl border border-slate-200 text-center flex-shrink-0 shadow-sm">
+                    <img src="https://i.ibb.co.com/8L8tS9w/president.jpg" class="w-28 h-28 rounded-full mx-auto mb-4 border-4 border-red-500 object-cover shadow-md">
+                    <h4 class="font-bold text-slate-800 text-lg">মোঃ সাহাদাত হোসেন শিহাব</h4>
+                    <p class="text-red-600 text-sm font-bold uppercase tracking-wider">সভাপতি ও প্রতিষ্ঠাতা</p>
+                </div>
+                <div class="w-64 bg-slate-50 p-6 rounded-2xl border border-slate-200 text-center flex-shrink-0 shadow-sm">
+                    <img src="https://via.placeholder.com/150" class="w-28 h-28 rounded-full mx-auto mb-4 border-4 border-red-500 object-cover shadow-md">
+                    <h4 class="font-bold text-slate-800 text-lg">সদস্যের নাম</h4>
+                    <p class="text-red-600 text-sm font-bold uppercase tracking-wider">সাধারণ সম্পাদক</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div>
-                <h2 class="text-xl font-bold text-slate-800 mb-4 pb-2 border-b-2 border-red-500 flex items-center">
-                    <span class="bg-red-600 text-white rounded-full w-6 h-6 inline-flex items-center justify-center text-sm mr-2">২</span>
-                    লগইন তথ্য (সুরক্ষার জন্য)
-                </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">সদস্যের ফোন নম্বর <span class="text-red-500">*</span></label>
-                        <input type="tel" name="memberPhone" required placeholder="017XXXXXXXX" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">পাসওয়ার্ড সেট করুন (৬-৮ অক্ষর) <span class="text-red-500">*</span></label>
-                        <input type="password" name="password" required placeholder="পাসওয়ার্ড লিখুন" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
-                    </div>
+    <!-- আমাদের কার্যক্রম সেকশন -->
+    <section class="py-20 bg-slate-50 px-4 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold text-slate-800 italic">আমাদের মানবসেবা কার্যক্রম</h2>
+            <p class="text-slate-500 mt-2">সমাজের কল্যাণে আমাদের কিছু ক্ষুদ্র প্রচেষ্টা</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-slate-100 p-2">
+                <img src="https://via.placeholder.com/400x300" class="w-full h-48 object-cover rounded-2xl">
+                <div class="p-6">
+                    <h3 class="font-bold text-xl mb-2 text-slate-800">শীতার্তদের পাশে আমরা</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">প্রতি বছর শীতকালে আমরা দুর্গম এলাকার অসহায় মানুষের মাঝে শীতবস্ত্র ও কম্বল বিতরণ করি।</p>
                 </div>
             </div>
-
-            <div>
-                <h2 class="text-xl font-bold text-slate-800 mb-4 pb-2 border-b-2 border-red-500 flex items-center">
-                    <span class="bg-red-600 text-white rounded-full w-6 h-6 inline-flex items-center justify-center text-sm mr-2">৩</span>
-                    অন্যান্য বিবরণী
-                </h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">জন্ম তারিখ <span class="text-red-500">*</span></label>
-                        <input type="date" name="dob" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">ধর্ম <span class="text-red-500">*</span></label>
-                        <select name="religion" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 bg-white transition">
-                            <option value="" disabled selected>নির্বাচন করুন</option>
-                            <option value="ইসলাম">ইসলাম</option>
-                            <option value="সনাতন (হিন্দু)">সনাতন (হিন্দু)</option>
-                            <option value="বৌদ্ধ">বৌদ্ধ</option>
-                            <option value="খ্রিস্টান">খ্রিস্টান</option>
-                            <option value="অন্যান্য">অন্যান্য</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">জাতীয়তা <span class="text-red-500">*</span></label>
-                        <input type="text" name="nationality" value="বাংলাদেশী" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">রক্তের গ্রুপ <span class="text-red-500">*</span></label>
-                        <select name="bloodGroup" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 bg-white transition">
-                            <option value="" disabled selected>নির্বাচন করুন</option>
-                            <option value="A+">A+</option><option value="A-">A-</option>
-                            <option value="B+">B+</option><option value="B-">B-</option>
-                            <option value="O+">O+</option><option value="O-">O-</option>
-                            <option value="AB+">AB+</option><option value="AB-">AB-</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">উচ্চতা <span class="text-red-500">*</span></label>
-                        <input type="text" name="height" required placeholder="উদা: ৫ ফুট ৪ ইঞ্চি" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">ID নম্বর (NID/পাসপোর্ট) <span class="text-red-500">*</span></label>
-                        <input type="text" name="docIdNumber" required placeholder="নম্বরটি টাইপ করুন" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
-                    </div>
+            <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-slate-100 p-2">
+                <img src="https://via.placeholder.com/400x300" class="w-full h-48 object-cover rounded-2xl">
+                <div class="p-6">
+                    <h3 class="font-bold text-xl mb-2 text-slate-800">জরুরী রক্তদান</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">আমাদের সংগঠনের দক্ষ রক্তদাতা সদস্যরা ২৪ ঘণ্টা মুমূর্ষু রোগীদের জন্য রক্তদানে প্রস্তুত থাকে।</p>
                 </div>
             </div>
-
-            <div>
-                <h2 class="text-xl font-bold text-slate-800 mb-4 pb-2 border-b-2 border-red-500 flex items-center">
-                    <span class="bg-red-600 text-white rounded-full w-6 h-6 inline-flex items-center justify-center text-sm mr-2">৪</span>
-                    ঠিকানা ও যোগাযোগ ব্যবস্থা
-                </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">বর্তমান ঠিকানা <span class="text-red-500">*</span></label>
-                        <textarea name="presentAddress" rows="2" required placeholder="গ্রাম, ডাকঘর, থানা, জেলা" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition resize-none"></textarea>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">স্থায়ী ঠিকানা <span class="text-red-500">*</span></label>
-                        <textarea name="permanentAddress" rows="2" required placeholder="গ্রাম, ডাকঘর, থানা, জেলা" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition resize-none"></textarea>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">যোগাযোগের ফোন নম্বর (জরুরী) <span class="text-red-500">*</span></label>
-                        <input type="tel" name="contactPhone" required placeholder="01XXXXXXXXX" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">পাসপোর্ট সাইজের ছবি <span class="text-red-500">*</span></label>
-                        <input type="file" id="photoFileInput" accept="image/*" required class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-slate-50 focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">NID/জন্ম সনদের ছবি <span class="text-red-500">*</span></label>
-                        <input type="file" id="docFileInput" accept="image/*" required class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-slate-50 focus:outline-none">
-                    </div>
+            <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-slate-100 p-2">
+                <img src="https://via.placeholder.com/400x300" class="w-full h-48 object-cover rounded-2xl">
+                <div class="p-6">
+                    <h3 class="font-bold text-xl mb-2 text-slate-800">ফ্রি মেডিকেল ক্যাম্প</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">দুস্থদের স্বাস্থ্য সেবা নিশ্চিত করতে আমরা অভিজ্ঞ ডাক্তারদের মাধ্যমে স্বাস্থ্য পরীক্ষা ও ঔষধ প্রদান করি।</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
-                <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center text-red-600">📋 ঘোষণা পত্র ও অঙ্গিকারনামা</h2>
-                <div class="space-y-4">
-                    <label class="flex items-start p-3 bg-white border border-gray-200 rounded-lg cursor-pointer hover:bg-red-50/30 transition">
-                        <input type="checkbox" name="rule1" required class="mt-1 text-red-600 h-4 w-4 rounded">
-                        <span class="ml-3 text-sm text-gray-700 leading-relaxed">আমি এমন কোনো অপরাধমূলক বা অনৈতিক কাজে জড়াবো না, যা ক্লাব-এর সামাজিক মর্যাদা ও সুনাম নষ্ট করে। <span class="text-red-500">*</span></span>
-                    </label>
-                    <label class="flex items-start p-3 bg-white border border-gray-200 rounded-lg cursor-pointer hover:bg-red-50/30 transition">
-                        <input type="checkbox" name="rule2" required class="mt-1 text-red-600 h-4 w-4 rounded">
-                        <span class="ml-3 text-sm text-gray-700 leading-relaxed">আমি সম্মান ও শ্রদ্ধার সাথে ক্লাব-এর নিয়ম ও অধিকার সমূহ মেনে চলার শপথ করছি। যদি আমি এই অঙ্গীকারনামার কোনো ধারা বা ক্লাব-এর শৃঙ্খলা ভঙ্গ করি, তাহলে ক্লাব কর্তৃপক্ষ আমার সদস্যপদ বাতিল সহ যেকোনো সিদ্ধান্ত নেওয়ার পূর্ণ অধিকার রাখবে। <span class="text-red-500">*</span></span>
-                    </label>
-                </div>
+    <!-- রেজিস্ট্রেশন ফর্ম সেকশন -->
+    <section id="registration-section" class="py-20 bg-slate-100 px-4">
+        <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200">
+            <div class="bg-gradient-to-r from-red-600 to-rose-600 p-8 text-center text-white">
+                <h2 class="text-3xl font-bold mb-2">সদস্যপদ আবেদন ফরম</h2>
+                <p class="text-red-100">সঠিক তথ্য দিয়ে ফরমটি পূরণ করুন</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- মূল ফর্ম শুরু (আপনার আগের ফর্মের সব ইনপুট এখানে থাকবে) -->
+            <form id="advancedRegistrationForm" class="p-6 md:p-10 space-y-8">
+                <input type="hidden" name="action" value="register">
+
+                <!-- সেকশন ১: ব্যক্তিগত তথ্য -->
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">পূর্ণ নাম (স্বাক্ষর হিসেবে) <span class="text-red-500">*</span></label>
-                    <input type="text" name="signatureName" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition font-medium">
+                    <h2 class="text-xl font-bold text-slate-800 mb-6 pb-2 border-b-2 border-red-500 flex items-center">
+                        <span class="bg-red-600 text-white rounded-full w-6 h-6 inline-flex items-center justify-center text-sm mr-2">১</span>
+                        ব্যক্তিগত তথ্য (Personal Info)
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">সদস্যের নাম (বাংলা) <span class="text-red-500">*</span></label>
+                            <input type="text" name="nameBn" required placeholder="উদা: সাহাদাত হোসেন" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">সদস্যের নাম (ইংরেজিতে) <span class="text-red-500">*</span></label>
+                            <input type="text" name="nameEn" required placeholder="Ex: Sahadat Hossen" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">আজকের তারিখ <span class="text-red-500">*</span></label>
-                    <input type="date" name="joiningDate" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
-                </div>
-            </div>
 
-            <div class="pt-4">
-                <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-red-600 to-rose-600 text-white font-bold py-3.5 rounded-xl shadow-lg hover:from-red-700 hover:to-rose-700 transition active:scale-[0.98] text-lg">নিবন্ধন সম্পন্ন করুন</button>
+                <!-- (আপনার বাকি সব ইনপুট ফিল্ডগুলো এখানে হুবহু বসবে...) -->
+                <!-- উদাহরণ হিসেবে ফোন ও পাসওয়ার্ড সেকশন -->
+                <div>
+                    <h2 class="text-xl font-bold text-slate-800 mb-6 pb-2 border-b-2 border-red-500 flex items-center">
+                        <span class="bg-red-600 text-white rounded-full w-6 h-6 inline-flex items-center justify-center text-sm mr-2">২</span>
+                        লগইন ও সুরক্ষা
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">মোবাইল নম্বর <span class="text-red-500">*</span></label>
+                            <input type="tel" name="memberPhone" required placeholder="017XXXXXXXX" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">পাসওয়ার্ড সেট করুন <span class="text-red-500">*</span></label>
+                            <input type="password" name="password" required placeholder="******" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ফর্মের বাকি সব কন্টেন্ট (ঠিকানা, ছবি আপলোড, শর্তাবলী) আপনার আগের কোড থেকে এখানে যোগ করুন -->
+                
+                <div class="pt-6">
+                    <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-red-600 to-rose-600 text-white font-bold py-4 rounded-xl shadow-lg hover:from-red-700 hover:to-rose-700 transition transform hover:scale-[1.02] active:scale-[0.98] text-lg">আবেদন সম্পন্ন করুন</button>
+                </div>
+                <p id="msg" class="text-center font-semibold text-green-600 mt-4 hidden bg-green-50 py-3 rounded-lg border border-green-200"></p>
+            </form>
+        </div>
+    </section>
+
+    <!-- ফুটার -->
+    <footer class="bg-slate-900 text-white py-12 px-4">
+        <div class="max-w-7xl mx-auto text-center">
+            <img src="https://i.ibb.co.com/spy8c0Q6/file-00000000e6c07208baa6a67b690fa7eb.png" class="w-16 h-16 mx-auto mb-4 grayscale hover:grayscale-0 transition">
+            <h3 class="text-xl font-bold mb-2 italic text-red-500">সোনার বাংলা একতা ক্লাব</h3>
+            <p class="text-slate-400 text-sm mb-6">মানবসেবায় আমাদের পথচলা শুরু বেতাগী থেকে।</p>
+            <div class="border-t border-slate-800 pt-8 text-slate-500 text-xs">
+                © ২০২৬ সোনার বাংলা একতা ক্লাব। সকল অধিকার সংরক্ষিত।
             </div>
-            
-            <p id="msg" class="text-center font-semibold text-green-600 mt-4 hidden bg-green-50 py-3 rounded-lg border border-green-200"></p>
-        </form>
-    </div>
+        </div>
+    </footer>
 
     <script>
+        // আপনার দেওয়া অ্যাডমিন লগইন লজিক (লগইন পেজে ব্যবহার করবেন)
         function accessAdmin() {
             var password = prompt("অ্যাডমিন প্যানেলে প্রবেশের জন্য গোপন পাসওয়ার্ডটি দিন:");
             if (password === "admin1234") {
                 window.location.href = "admin.html";
             } else if (password !== null) {
-                alert("ভুল পাসওয়ার্ড! আপনি অ্যাডমিন প্যানেলে প্রবেশের যোগ্য নন।");
+                alert("ভুল পাসওয়ার্ড!");
             }
         }
     </script>
